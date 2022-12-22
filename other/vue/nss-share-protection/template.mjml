@@ -1,0 +1,143 @@
+<mjml>
+  <mj-head>
+    <mj-raw>
+      <meta name="color-scheme" content="light dark">
+      <meta name="supported-color-schemes" content="light dark">
+    </mj-raw>
+    <mj-style>
+      :root {
+        Color-scheme: light dark;
+        supported-color-schemes:light dark;
+      }
+
+      .container {
+        padding: 16px;
+        background: #d9d9d9;
+      }
+
+      .container .content-column {
+        background-color: #fff !important;
+      }
+
+      .link{
+        display: inline-block;
+        text-align: center;
+        border: 0.5px solid #ED0008;
+        border-radius: 4px;
+        padding: 10px 24px;
+        box-sizing: border-box;
+
+        /* outlook unsupported linear-gradient so defined background twice for outlook support */
+        background: #EA0108;
+        background: linear-gradient(180deg, #EA0108 0%, #D50107 100%);
+      }
+
+      @media (max-width: 480px) {
+        .link {
+          width: 100%;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .container {
+          background: #151515 !important;
+        }
+
+        .container :not(a) {
+          color:#fff !important;
+        }
+
+        .container .content-column {
+          background-color: #303030 !important;
+        }
+      }
+    </mj-style>
+
+    <mj-style inline="inline">
+      a {
+        color: #0074E8;
+        text-decoration: none;
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body css-class="container" width="600px">
+    <mj-section
+            padding="10px 0 25px"
+            background-repeat="no-repeat"
+            background-size="cover"
+            background-url="{{ headerBg }}">
+      <mj-column>
+        <mj-table>
+          <tr>
+            <td>
+              <img src="{{ headerLogo }}" />
+            </td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding-bottom="0" css-class="content-column">
+      <mj-column>
+        <mj-text>
+          <div>{{ greeting }}</div>
+        </mj-text>
+        <mj-text>
+          <div style="line-height: 1.4">{{ greetingText }}</div>
+        </mj-text>
+        <mj-text>
+          <div style="line-height: 1.4">
+            {{ installStep }}
+            <br>
+            {{ installStep1 }}
+            <br>
+            {{ installStep2 }}
+          </div>
+        </mj-text>
+        <mj-text>
+          <div style="line-height: 1.4">
+            {{ notice }}
+          </div>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="24px 0" css-class="content-column">
+      <mj-column>
+        <mj-table>
+          <tr>
+            <td align="center">
+              <a href="{{ $downloadNowLink }}" class="link" style="font-size: 16px; color: #fff;">
+                {{ btnDownload }}
+              </a>
+            </td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <mj-section
+            css-class="content-column"
+            padding="20px"
+            background-size="100px"
+            background-repeat="no-repeat"
+            background-position="right bottom"
+            background-url="{{ redCurve }}">
+    </mj-section>
+
+    <mj-section padding-top="20px" padding-bottom="0">
+      <mj-column>
+        <mj-text color="#555555" align="center" font-size="12px" line-height="1.15">
+          {{ footer }}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding-top="20px">
+      <mj-column>
+        <mj-image width="100px" src="{{ footerLogo }}" />
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
