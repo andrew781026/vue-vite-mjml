@@ -1,7 +1,58 @@
-# Vue 3 + Vite
+# Vue 3 with SSR + Vite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+the example project at https://github.com/vitejs/vite-plugin-vue/tree/main/playground/ssr-vue
 
-## Recommended IDE Setup
+for more info , please read : https://vitejs.dev/guide/ssr.html
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+## Init project
+
+```
+andrew_s_wang@tw-andrewswang projects % npm create vite@latest my-vue-app -- --template ssr-vue
+? "ssr-vue" isn't a valid template. Please choose from below:  › - Use arrow-keys. Return to submit.
+    Vanilla
+    Vue
+    React
+    Preact
+    Lit
+    Svelte
+❯   Others
+---------------------
+? Select a variant: › - Use arrow-keys. Return to submit.
+❯   create-vite-extra ↗
+---------------------
+? Select a template: › - Use arrow-keys. Return to submit.
+    ssr-vanilla
+❯   ssr-vue
+    ssr-react
+    ssr-preact
+    ssr-svelte
+    ssr-solid
+    deno-vanilla
+    deno-vue
+    deno-react
+  ↓ deno-preact
+---------------------
+? Select a variant: › - Use arrow-keys. Return to submit.
+❯   JavaScript
+    TypeScript
+---------------------
+[ total info ]
+andrew_s_wang@tw-andrewswang projects % npm create vite@latest my-vue-app -- --template ssr-vue
+✔ "ssr-vue" isn't a valid template. Please choose from below:  › Others
+✔ Select a variant: › create-vite-extra ↗
+✔ Select a template: › ssr-vue
+✔ Select a variant: › JavaScript
+
+Scaffolding project in /Users/andrew_s_wang/Documents/projects/my-vue-app...
+
+Done. Now run:
+
+  cd my-vue-app
+  npm install
+  npm run dev
+```
+
+## Steps of SSG
+
+1. use `vite build --ssr src/entry-server.js --outDir dist/server` to build out the source js file
+2. 
