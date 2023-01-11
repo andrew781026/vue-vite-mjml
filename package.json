@@ -1,13 +1,14 @@
 {
   "name": "ssr-vue-mjml",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "author": "andrew",
   "type": "module",
   "scripts": {
-    "dev": "node server",
+    "dev": "echo error",
     "build:server": "vite build --ssr src/entry-server.js --outDir dist/server",
     "generate": "vite build --ssrManifest --outDir dist/mjml && npm run build:server && node prerender",
-    "preview": "cross-env NODE_ENV=production node server"
+    "preview": "echo error"
   },
   "dependencies": {
     "compression": "^1.7.4",

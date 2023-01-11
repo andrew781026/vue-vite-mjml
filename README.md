@@ -6,6 +6,8 @@ for more info , please read : https://vitejs.dev/guide/ssr.html
 
 ## Init project
 
+use vite-cli to init project with ssr-vue template in vite github repo
+
 ```
 andrew_s_wang@tw-andrewswang projects % npm create vite@latest my-vue-app -- --template ssr-vue
 ? "ssr-vue" isn't a valid template. Please choose from below:  › - Use arrow-keys. Return to submit.
@@ -55,4 +57,4 @@ Done. Now run:
 ## Steps of SSG
 
 1. use `vite build --ssr src/entry-server.js --outDir dist/server` to build out the source js file
-2. 
+2. add prerender.js , run it to generate the html for files in pages
