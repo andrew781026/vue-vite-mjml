@@ -1,32 +1,42 @@
 <template>
-  <mj-section
+  <mj-head>
+    <mj-raw>
+      <meta name="color-scheme" content="light dark" />
+      <meta name="supported-color-schemes" content="light dark" />
+    </mj-raw>
+  </mj-head>
+
+  <mj-body css-class="container" width="600px">
+    <mj-section
       padding="10px 0 25px"
       background-repeat="no-repeat"
       background-size="cover"
-      :background-url="data.headerBg">
-    <mj-column>
-      <mj-table>
-        <tr>
-          <td>
-            <img :src="data.headerLogo"/>
-          </td>
-        </tr>
-      </mj-table>
-    </mj-column>
-  </mj-section>
+      :background-url="data.headerBg"
+    >
+      <mj-column>
+        <mj-table>
+          <tr>
+            <td>
+              <img :src="data.headerLogo" />
+            </td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+  </mj-body>
 </template>
 
 <script setup>
 // use context to switch using data or blade
-const $imagesPath = '/images';
+const $imagesPath = "/static/images";
 
 const data = {
   isStatic: true,
-  $downloadNowLink: 'https://github.com/',
-  redCurve: '/images/img_m_red_curve.png',
-  headerBg: $imagesPath + '/email/header_bg.png',
-  headerLogo: '/images/img_lockup_tm_white_email.png',
-  footerLogo: '/images/img_lockup_tm_red_email.png',
+  $downloadNowLink: "https://github.com/",
+  redCurve: $imagesPath + "/img_m_red_curve.png",
+  headerBg: $imagesPath + "/email/header_bg.png",
+  headerLogo: "/images/img_lockup_tm_white_email.png",
+  footerLogo: "/images/img_lockup_tm_red_email.png",
 };
 
 const blade = {
@@ -34,7 +44,7 @@ const blade = {
   headerLogo: `{{ url(images/email/img_lockup_tm_white_email.png) }}`,
   footerLogo: `{{ url(images/email/img_lockup_tm_red_email.png) }}`,
   redCurve: `{{ url(images/email/img_m_red_curve.png) }}`,
-  $imagesPath: '{{ $imagesPath }}',
+  $imagesPath: "{{ $imagesPath }}",
   greeting: `@lang('email.user_signup_welcome.greeting')`,
   greetingText: `@lang('email.user_signup_welcome.greetingText')`,
   installStep: `@lang('email.user_signup_welcome.installStep')`,
@@ -43,13 +53,13 @@ const blade = {
   notice: `@lang('email.user_signup_welcome.notice')`,
   btnDownload: `@lang('email.user_signup_welcome.btnDownload')`,
   footer: `@lang('email.user_signup_welcome.footer', ['SupportLink' => $supportLink]).`,
-  $downloadNowLink: '{{ $downloadNowLink }}',
+  $downloadNowLink: "{{ $downloadNowLink }}",
 };
 </script>
 
 <style>
 :root {
-  Color-scheme: light dark;
+  color-scheme: light dark;
   supported-color-schemes: light dark;
 }
 
@@ -65,14 +75,14 @@ const blade = {
 .link {
   display: inline-block;
   text-align: center;
-  border: 0.5px solid #ED0008;
+  border: 0.5px solid #ed0008;
   border-radius: 4px;
   padding: 10px 24px;
   box-sizing: border-box;
 
   /* outlook unsupported linear-gradient so defined background twice for outlook support */
-  background: #EA0108;
-  background: linear-gradient(180deg, #EA0108 0%, #D50107 100%);
+  background: #ea0108;
+  background: linear-gradient(180deg, #ea0108 0%, #d50107 100%);
 }
 
 @media (max-width: 480px) {

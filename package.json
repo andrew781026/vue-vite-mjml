@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "compression": "^1.7.4",
-    "express": "^4.18.2",
     "pinia": "^2.0.28",
     "sirv": "^2.0.2",
     "vue": "^3.2.45",
@@ -22,10 +21,13 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
+    "chokidar": "^3.5.3",
     "cross-env": "^7.0.3",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-vue": "^9.9.0",
+    "express": "^4.18.2",
+    "fs-extra": "^11.1.0",
     "mjml": "^4.13.0",
     "prettier": "2.8.2",
     "vite": "^4.0.0"
