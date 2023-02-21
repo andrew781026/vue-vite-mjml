@@ -3,16 +3,15 @@ import fs from "fs";
 import fse from "fs-extra";
 import path from "path";
 import { fileURLToPath } from "url";
-import express, { response } from "express";
+import express  from "express";
 import { createServer as createViteServer } from "vite";
 import mjml2html from "mjml";
 import { EventEmitter } from "events";
 
 class SseHelper {
-  responses = {};
-
   constructor(watcher) {
-    event = new EventEmitter();
+    this.responses = {};
+    const event = new EventEmitter();
 
     watcher.on("change", (file) => {
       console.log(`File ${file} has been changed`);
@@ -20,15 +19,17 @@ class SseHelper {
       event.emit("file-change", url);
     });
 
-    event.on(`file-change`, function (url) {
-      const data = JSON.stringify({ url });
-      responses[url].forEach((res) => res.write(`data: ${data} \n\n`)); // Emit an SSE
+    event.on(`file-change`, (url) => {
+      const data = JSON.stringify({ url, reload: true });
+      if (this.responses[url])
+        this.responses[url].forEach((res) => res.write(`data: ${data} \n\n`)); // Emit an SSE
     });
   }
 
   setResponseUrl(url, res) {
-    if (response[url]) return response[url].push(res);
-    else return response[url] = [res]
+    const arr = this.responses[url];
+    if (arr) return arr.push(res);
+    else return (this.responses[url] = [res]);
   }
 }
 
@@ -36,7 +37,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 async function createServer() {
   const app = express();
-  const event = new EventEmitter();
 
   // 以中间件模式创建 Vite 应用，这将禁用 Vite 自身的 HTML 服务逻辑
   // 并让上级服务器接管控制
@@ -45,15 +45,12 @@ async function createServer() {
     appType: "custom",
   });
 
-  vite.watcher.on("change", (file) => {
-    console.log(`File ${file} has been changed`);
-    const url = path.basename(file, ".vue").toLowerCase();
-    event.emit(`file-change-${url}`);
-  });
-
   // 使用 vite 的 Connect 实例作为中间件
   // 如果你使用了自己的 express 路由（express.Router()），你应该使用 router.use
   app.use(vite.middlewares);
+
+  // set watcher & it's event
+  const sseHelper = new SseHelper(vite.watcher);
 
   app.get("/events/:url", async function (req, res) {
     res.set({
@@ -63,11 +60,7 @@ async function createServer() {
     });
     res.flushHeaders();
     const url = req.params.url;
-
-    event.on(`file-change-${url}`, function () {
-      const data = JSON.stringify({ url });
-      res.write(`data: ${data} \n\n`); // Emit an SSE
-    });
+    sseHelper.setResponseUrl(url, res);
   });
 
   const assetsFolder = path.resolve(__dirname, "dist/html/assets");
@@ -124,7 +117,7 @@ async function createServer() {
             
                   source.addEventListener('message', event => {
                       const data = JSON.parse(event.data)
-                      console.log('data=',data)
+                      console.log('sse data=',data)
                       if (data.reload) location.reload()
                   });
               </script>

@@ -7,5 +7,7 @@
   "rules": {
     // override/add rules settings here, such as:
     // "vue/no-unused-vars" : "error"
+     "vue/no-v-text-v-html-on-component" : 0, // 0 = off, 1 = warn, 2 = error
+     "vue/multi-word-component-names" : 0 // 0 = off, 1 = warn, 2 = error
   }
 }

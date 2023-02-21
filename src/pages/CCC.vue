@@ -1,38 +1,5 @@
 <template>
-  <mj-head>
-    <mj-attributes>
-      <mj-all padding="0px"/>
-      <mj-class
-          name="preheader"
-          color="#000000"
-          font-size="11px"
-          font-family="Ubuntu, Helvetica, Arial, sans-serif"
-          padding="0 20px"
-      />
-      <mj-class
-          name="cta"
-          color="#FFFFFF"
-          font-size="13px"
-          border-radius="3px"
-          href="https://mjml.io"
-          font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif"
-          padding="20px 25px"
-      />
-      <mj-class
-          name="footer-text"
-          align="center"
-          color="#ffffff"
-          font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif"
-          font-size="15px"
-          padding="0 25px"
-      />
-      <mj-navbar-link padding="0 35px" font-weight="bold" font-size="12px"/>
-    </mj-attributes>
-    <mj-style inline="inline">
-      a { text-decoration: none; color: inherit; }
-    </mj-style>
-  </mj-head>
-  <mj-body background-color="#d2eeff">
+  <Email>
     <mj-section padding-bottom="20px" padding-top="20px">
       <mj-group>
         <mj-column>
@@ -263,11 +230,48 @@
         </mj-text>
       </mj-column>
     </mj-section>
-  </mj-body>
+  </Email>
 </template>
 
 <script setup>
+import Email from '../components/Email.vue'
+import {appendHead, setBodyAttr} from "../components/useEmail.js";
+
 const worldlyLogo = 'http://191n.mj.am/img/191n/3s/x0j.png'
+
+appendHead('main', `<mj-attributes>
+      <mj-all padding="0px"/>
+      <mj-class
+          name="preheader"
+          color="#000000"
+          font-size="11px"
+          font-family="Ubuntu, Helvetica, Arial, sans-serif"
+          padding="0 20px"
+      />
+      <mj-class
+          name="cta"
+          color="#FFFFFF"
+          font-size="13px"
+          border-radius="3px"
+          href="https://mjml.io"
+          font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif"
+          padding="20px 25px"
+      />
+      <mj-class
+          name="footer-text"
+          align="center"
+          color="#ffffff"
+          font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif"
+          font-size="15px"
+          padding="0 25px"
+      />
+      <mj-navbar-link padding="0 35px" font-weight="bold" font-size="12px"/>
+    </mj-attributes>
+    <mj-style inline="inline">
+      a { text-decoration: none; color: inherit; }
+    </mj-style>`)
+
+setBodyAttr('background-color', "#d2eeff")
 </script>
 
 <style scoped></style>
