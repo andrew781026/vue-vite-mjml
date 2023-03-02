@@ -74,60 +74,30 @@
     </mj-section>
     <mj-section background-color="#ffffff" padding="20px 0">
       <mj-column>
-        <mj-text
-            align="center"
-            font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif"
-            font-size="15px"
-            padding="10px 25px"
-            color="#BD8714"
-        >
-          <p>SUNNIEST DESTINATIONS</p>
-        </mj-text>
-        <mj-image
-            src="http://191n.mj.am/img/191n/3s/x2w.jpg"
-            alt="Maldives, Corse : -15%"
-            width="240px"
+        <BookNowCard
+            title="SUNNIEST DESTINATIONS"
+            image="http://191n.mj.am/img/191n/3s/x2w.jpg"
+            btn-color="#bd8714"
+            btn-label="BOOK NOW"
         />
-        <mj-button mj-class="cta" background-color="#bd8714">
-          BOOK NOW
-        </mj-button>
-        <mj-image
-            src="http://191n.mj.am/img/191n/3s/x2x.jpg"
-            alt="Tahiti, Bora Bora : -10 %"
-            width="240px"
-            padding="10px 25px"
+        <BookNowCard
+            image="http://191n.mj.am/img/191n/3s/x2x.jpg"
+            btn-color="#bd8714"
+            btn-label="BOOK NOW"
         />
-        <mj-button mj-class="cta" background-color="#bd8714">
-          BOOK NOW
-        </mj-button>
       </mj-column>
       <mj-column>
-        <mj-text
-            align="center"
-            font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif"
-            font-size="15px"
-            padding="10px 25px"
-            color="#BD8714"
-        >
-          <p>CHEAP CITY TOUR</p>
-        </mj-text>
-        <mj-image
-            src="http://191n.mj.am/img/191n/3s/x20.jpg"
-            alt="Stockholm, Rome : from 162 € / day"
-            width="240px"
+        <BookNowCard
+            title="CHEAP CITY TOUR"
+            image="http://191n.mj.am/img/191n/3s/x20.jpg"
+            btn-color="#48b6bf"
+            btn-label="BOOK NOW"
         />
-        <mj-button mj-class="cta" background-color="#48b6bf">
-          BOOK NOW
-        </mj-button>
-        <mj-image
-            src="http://191n.mj.am/img/191n/3s/x2s.jpg"
-            alt="New York, London : -30 %"
-            width="240px"
-            padding="10px 25px"
+        <BookNowCard
+            image="http://191n.mj.am/img/191n/3s/x2s.jpg"
+            btn-color="#48b6bf"
+            btn-label="BOOK NOW"
         />
-        <mj-button mj-class="cta" background-color="#48b6bf">
-          BOOK NOW
-        </mj-button>
       </mj-column>
     </mj-section>
     <mj-section background-color="#ffffff" padding="20px 0">
@@ -222,20 +192,17 @@
         />
       </mj-column>
     </mj-section>
-    <mj-section padding="20px 0">
-      <mj-column>
-        <mj-text align="center" color="#000000" font-size="11px">
-          [[DELIVERY_INFO]]
-          <p>[[POSTAL_ADDRESS]]</p>
-        </mj-text>
-      </mj-column>
-    </mj-section>
+    <Footer
+        delivery-info="DELIVERY_INFO"
+        postal-address="POSTAL_ADDRESS" />
   </Email>
 </template>
 
 <script setup>
 import Email from '../components/Email.vue'
-import {appendHead, setBodyAttr} from "../components/useEmail.js";
+import {appendHead, setBodyAttr} from "../components/Email.vue";
+import Footer from "./ccc/Footer.vue";
+import BookNowCard from "./ccc/BookNowCard.vue";
 
 const worldlyLogo = 'http://191n.mj.am/img/191n/3s/x0j.png'
 
@@ -247,15 +214,6 @@ appendHead('main', `<mj-attributes>
           font-size="11px"
           font-family="Ubuntu, Helvetica, Arial, sans-serif"
           padding="0 20px"
-      />
-      <mj-class
-          name="cta"
-          color="#FFFFFF"
-          font-size="13px"
-          border-radius="3px"
-          href="https://mjml.io"
-          font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif"
-          padding="20px 25px"
       />
       <mj-class
           name="footer-text"

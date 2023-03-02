@@ -52,6 +52,7 @@ async function createServer() {
   // set watcher & it's event
   const sseHelper = new SseHelper(vite.watcher);
 
+  // the server side event URL
   app.get("/events/:url", async function (req, res) {
     res.set({
       "Cache-Control": "no-cache",
@@ -106,8 +107,6 @@ async function createServer() {
 
       // 5. 注入渲染后的应用程序 HTML 到模板中。
       const mjml = template.replace(`<!--app-html-->`, appHtml);
-
-      // TODO : 整理 mj-head 跟 mj-body 的內容到一起
 
       // - https://masteringjs.io/tutorials/express/server-sent-events
       // append the server sent script

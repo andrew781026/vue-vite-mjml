@@ -1,4 +1,6 @@
-# Vue 3 with SSR + Vite
+# Vue 3 with SSR + Vite + MJML
+
+the template for MJML render
 
 the example project at https://github.com/vitejs/vite-plugin-vue/tree/main/playground/ssr-vue
 
@@ -58,3 +60,7 @@ Done. Now run:
 
 1. use `vite build --ssr src/entry-server.js --outDir dist/server` to build out the source js file
 2. add prerender.js , run it to generate the html for files in pages
+
+## Email 
+
+- Email.vue

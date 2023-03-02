@@ -36,11 +36,8 @@ export const prerender = async () => {
 
     const mjml = template.replace(`<!--app-html-->`, appHtml);
 
-    // TODO : 整理 mj-head 跟 mj-body 的內容到一起
-
     const mjmlPath = `${path.resolve(distFolder, "../mjml")}${url}.mjml`;
     fs.writeFileSync(toAbsolute(mjmlPath), mjml);
-
 
     const html = mjml2html(mjml).html;
     const htmlPath = `${path.resolve(distFolder, "../html")}${url}.html`;
