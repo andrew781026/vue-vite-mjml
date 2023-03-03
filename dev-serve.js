@@ -25,7 +25,7 @@ class BrowserSyncHelper {
 
     viteDevServer.watcher.on("change", (file) => {
       console.log(`File ${file} has been changed`);
-      bs.reload();
+      if ( file.includes('/src/') || file.includes('/public/') ) bs.reload();
     });
   }
 }
@@ -36,7 +36,9 @@ async function createServer() {
   // 以中间件模式创建 Vite 应用，这将禁用 Vite 自身的 HTML 服务逻辑
   // 并让上级服务器接管控制
   const vite = await createViteServer({
-    server: { middlewareMode: true },
+    server: {
+      middlewareMode: true,
+    },
     appType: "custom",
     root: __dirname,
   });
