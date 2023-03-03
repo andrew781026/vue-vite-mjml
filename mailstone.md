@@ -4,13 +4,10 @@
 4. build all mjml to email
 5. build all mjml to .blade file
 
----
+- mj-head 改用 appendHead 來塞入對應的 head style 
 
-卡住的部分：
-目前 .vue 檔案中的 style block 沒法載入到最終的 html 檔案中
-=> required to set style block to mj-head
-
-other plan -> no mj-style use Head.vue to make the mj-head block
+Maybe we can make a Plugin of vite to render MJML ?
+- relates [vite-plugin-mjml](https://www.npmjs.com/package/vite-plugin-mjml)
 
 ---
 
@@ -18,3 +15,9 @@ note can be two part -
 
 1. the ssg for vite ( use ssr-vue template )
 2. add mjml on vite
+
+---
+
+- [ ] email sample - 建立信件範例 ( ex : steam 的信件為例 )
+- [ ] 整理一個簡單的方式，來說明如何建立這個 email 的使用
+
