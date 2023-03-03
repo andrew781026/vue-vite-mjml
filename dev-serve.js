@@ -3,37 +3,32 @@ import fs from "fs";
 import fse from "fs-extra";
 import path from "path";
 import { fileURLToPath } from "url";
-import express  from "express";
+import express from "express";
 import { createServer as createViteServer } from "vite";
 import mjml2html from "mjml";
-import { EventEmitter } from "events";
-
-class SseHelper {
-  constructor(watcher) {
-    this.responses = {};
-    const event = new EventEmitter();
-
-    watcher.on("change", (file) => {
-      console.log(`File ${file} has been changed`);
-      const url = path.basename(file, ".vue").toLowerCase();
-      event.emit("file-change", url);
-    });
-
-    event.on(`file-change`, (url) => {
-      const data = JSON.stringify({ url, reload: true });
-      if (this.responses[url])
-        this.responses[url].forEach((res) => res.write(`data: ${data} \n\n`)); // Emit an SSE
-    });
-  }
-
-  setResponseUrl(url, res) {
-    const arr = this.responses[url];
-    if (arr) return arr.push(res);
-    else return (this.responses[url] = [res]);
-  }
-}
+import browserSync from "browser-sync";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const entryServer = "/src/entry-server.js";
+
+class BrowserSyncHelper {
+  constructor(viteDevServer, { proxy, port } = {}) {
+    const bs = browserSync.create();
+
+    bs.init({
+      proxy,
+      open: true,
+      middleware: viteDevServer.middlewares,
+      port,
+    });
+
+    viteDevServer.watcher.on("change", (file) => {
+      console.log(`File ${file} has been changed`);
+      bs.reload();
+    });
+  }
+}
 
 async function createServer() {
   const app = express();
@@ -43,26 +38,17 @@ async function createServer() {
   const vite = await createViteServer({
     server: { middlewareMode: true },
     appType: "custom",
+    root: __dirname,
+  });
+
+  new BrowserSyncHelper(vite, {
+    port: 5188,
+    proxy: "http://localhost:5173",
   });
 
   // 使用 vite 的 Connect 实例作为中间件
   // 如果你使用了自己的 express 路由（express.Router()），你应该使用 router.use
   app.use(vite.middlewares);
-
-  // set watcher & it's event
-  const sseHelper = new SseHelper(vite.watcher);
-
-  // the server side event URL
-  app.get("/events/:url", async function (req, res) {
-    res.set({
-      "Cache-Control": "no-cache",
-      "Content-Type": "text/event-stream",
-      Connection: "keep-alive",
-    });
-    res.flushHeaders();
-    const url = req.params.url;
-    sseHelper.setResponseUrl(url, res);
-  });
 
   const assetsFolder = path.resolve(__dirname, "dist/html/assets");
 
@@ -90,7 +76,7 @@ async function createServer() {
       // 3. 加载服务器入口。vite.ssrLoadModule 将自动转换
       //    你的 ESM 源码使之可以在 Node.js 中运行！无需打包
       //    并提供类似 HMR 的根据情况随时失效。
-      const { render } = await vite.ssrLoadModule("/src/entry-server.js");
+      const { render } = await vite.ssrLoadModule(entryServer);
 
       // 4. 渲染应用的 HTML。这假设 entry-server.js 导出的 `render`
       //    函数调用了适当的 SSR 框架 API。
@@ -108,24 +94,7 @@ async function createServer() {
       // 5. 注入渲染后的应用程序 HTML 到模板中。
       const mjml = template.replace(`<!--app-html-->`, appHtml);
 
-      // - https://masteringjs.io/tutorials/express/server-sent-events
-      // append the server sent script
-      const sseScript = `
-              <script type="text/javascript">
-                  const source = new EventSource('/events${url}');
-            
-                  source.addEventListener('message', event => {
-                      const data = JSON.parse(event.data)
-                      console.log('sse data=',data)
-                      if (data.reload) location.reload()
-                  });
-              </script>
-            `;
-
-      const html = mjml2html(mjml).html.replace(
-        "</body>",
-        sseScript + "</body>"
-      );
+      const html = mjml2html(mjml).html;
 
       // 6. 返回渲染后的 HTML。
       res.status(200).set({ "Content-Type": "text/html" }).end(html);
