@@ -64,3 +64,7 @@ Done. Now run:
 ## Email 
 
 - Email.vue
+
+### relate
+
+https://youtu.be/LoVIrZHML24?si=_X2sa6_S-Ga89x-5
