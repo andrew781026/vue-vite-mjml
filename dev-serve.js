@@ -22,10 +22,18 @@ class BrowserSyncHelper {
       port,
     });
 
+    // bs.reload() as [ /src/**/* , /public/**/* ] file change
     viteDevServer.watcher.on("change", (file) => {
       console.log(`File ${file} has been changed`);
-      if (file.includes("/src/") || file.includes("/public/")) bs.reload();
+      const srcFolder = path.resolve(__dirname,'src');
+      const publicFolder = path.resolve(__dirname,'public');
+      if (file.includes(srcFolder) || file.includes(publicFolder)) {
+        console.log('bs reload！！！');
+        bs.reload();
+      }
     });
+
+    this.bs = bs;
   }
 }
 
@@ -37,6 +45,7 @@ async function createServer() {
   const vite = await createViteServer({
     server: {
       middlewareMode: true,
+      hmr: false, // disable hmr , using file watcher
     },
     appType: "custom",
     root: __dirname,

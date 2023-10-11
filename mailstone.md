@@ -4,7 +4,7 @@
 4. build all mjml to email
 5. build all mjml to .blade file
 
-- mj-head 改用 appendHead 來塞入對應的 head style 
+- mj-head 改用 appendHead 來塞入對應的 head style ( for component )
 
 Maybe we can make a Plugin of vite to render MJML ?
 - relates [vite-plugin-mjml](https://www.npmjs.com/package/vite-plugin-mjml)
